@@ -1,66 +1,57 @@
-/* Projects page styling - premium dark theme with glassmorphism */
-
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+/* Custom Projects styling aligned with the Cyber-Minimalist palette */
 
 .projects-page {
-  font-family: 'Inter', sans-serif;
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  color: #e0e0e0;
-  background: linear-gradient(135deg, rgba(30,30,30,0.9), rgba(45,45,45,0.9));
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.projects-page h1 {
-  font-size: 2.2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #f97316; /* premium dark orange */
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  font-family: var(--font-sans);
+  padding: 40px 0;
+  max-width: 100%;
+  margin: 0;
+  color: var(--text-main);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .dropdown-wrapper {
   display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
+  justify-content: flex-start;
+  margin-bottom: 24px;
 }
 
 .custom-dropdown {
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   cursor: pointer;
   user-select: none;
+  font-family: var(--font-mono);
 }
 
 .selected-item {
-  padding: 0.8rem 1.2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid #f97316;
-  border-radius: 12px;
-  color: #e0e0e0;
+  padding: 12px 18px;
+  background: rgba(13, 26, 47, 0.8);
+  border: 1px solid var(--panel-slate);
+  border-radius: 2px;
+  color: var(--text-main);
+  font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  font-weight: 500;
+  transition: var(--transition-fast);
 }
 
 .custom-dropdown:hover .selected-item {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+  background: rgba(23, 54, 79, 0.3);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(9, 216, 199, 0.15);
 }
 
 .arrow {
   font-size: 0.8rem;
   transition: transform 0.3s ease;
-  color: #f97316;
+  color: var(--neon-cyan);
 }
 
 .custom-dropdown.open .arrow {
@@ -69,29 +60,30 @@
 
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: rgba(30, 30, 30, 0.95);
-  border: 1px solid rgba(249, 115, 22, 0.3);
-  border-radius: 12px;
+  background: #0D1A2F;
+  border: 1px solid var(--panel-slate);
+  border-radius: 2px;
   overflow: hidden;
   z-index: 100;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(16px);
-  animation: slideDown 0.3s ease-out;
+  animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown-item {
-  padding: 0.8rem 1.2rem;
-  transition: all 0.2s ease;
-  color: #bbb;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 12px 18px;
+  font-size: 0.85rem;
+  transition: var(--transition-fast);
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(23, 54, 79, 0.3);
 }
 
 .dropdown-item:last-child {
@@ -99,68 +91,97 @@
 }
 
 .dropdown-item:hover {
-  background: rgba(249, 115, 22, 0.15);
-  color: #f97316;
-  padding-left: 1.5rem;
+  background: rgba(23, 54, 79, 0.4);
+  color: var(--neon-cyan);
+  padding-left: 24px;
 }
 
 .dropdown-item.active {
-  background: rgba(249, 115, 22, 0.2);
-  color: #f97316;
+  background: rgba(9, 216, 199, 0.08);
+  color: var(--neon-cyan);
   font-weight: 600;
+  border-left: 2px solid var(--neon-cyan);
 }
 
+/* Glassmorphic Project Card with custom borders */
 .project-card {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  background: rgba(23, 54, 79, 0.2);
+  border: 1px solid var(--panel-slate);
+  border-radius: 4px;
+  padding: 36px;
+  text-align: left;
+  position: relative;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.project-card:hover {
+  border-color: rgba(9, 216, 199, 0.3);
+  box-shadow: 0 15px 35px -20px rgba(9, 216, 199, 0.15);
 }
 
 .project-card h2 {
   font-size: 1.8rem;
-  margin-bottom: 0.8rem;
-  color: #f97316;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
 }
 
 .project-card p {
-  margin: 0.5rem 0 1rem;
-  line-height: 1.4;
+  margin: 0.5rem 0 1.5rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-size: 1.05rem;
 }
 
 .project-links {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 24px;
   flex-wrap: wrap;
 }
 
 .project-card a {
   display: inline-block;
-  padding: 0.6rem 1.4rem;
+  padding: 10px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
   background: transparent;
-  color: #f97316;
-  border: 1px solid #f97316;
-  border-radius: 8px;
+  color: var(--neon-cyan);
+  border: 1px solid var(--neon-cyan);
+  border-radius: 2px;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  transition: var(--transition-fast);
 }
 
+/* Hover uses vibrant cyber crimson */
 .project-card a:hover {
-  background: #f97316;
-  color: #ffffff;
-  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
-  transform: translateY(-2px);
+  background: rgba(189, 9, 39, 0.08);
+  color: var(--neon-crimson);
+  border-color: var(--neon-crimson);
+  box-shadow: 0 0 15px rgba(189, 9, 39, 0.3);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 600px) {
-  .projects-page {
-    padding: 1rem;
+  .project-card {
+    padding: 24px;
   }
   .project-card h2 {
     font-size: 1.5rem;

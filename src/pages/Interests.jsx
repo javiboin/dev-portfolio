@@ -1,14 +1,24 @@
+import React from 'react';
 import Music from "../components/Music";
 import Movies from "../components/Movies";
 
 const Interests = () => {
     return (
-        <div className="interests">
-            <h1>Interests</h1>
-            <p>Sección para mostrar intereses /Hobbies.</p>
-            <Music />
-            <Movies />
-        </div>
+        <section className="interests-section" id="intereses">
+            <h2 className="section-title" style={{ color: 'var(--neon-crimson)' }}>
+                04 // INTERESES <span>/ CREATIVIDAD</span>
+            </h2>
+            
+            <p className="interests-intro">
+                Más allá del código y la ingeniería, disfruto explorando universos creativos, 
+                atmósferas sonoras y narrativas cinematográficas que inspiran mi pensamiento diario.
+            </p>
+            
+            <div className="interests-grid">
+                <Music />
+                <Movies />
+            </div>
+        </section>
     );
 };
 
