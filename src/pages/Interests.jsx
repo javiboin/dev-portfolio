@@ -5,7 +5,7 @@ import Movies from "../components/Movies";
 const Interests = () => {
     return (
         <section className="interests-section" id="intereses">
-            <h2 className="section-title" style={{ color: 'var(--neon-crimson)' }}>
+            <h2 className="section-title" style={{ color: 'var(--accent-red)' }}>
                 04 // INTERESES <span>/ CREATIVIDAD</span>
             </h2>
             

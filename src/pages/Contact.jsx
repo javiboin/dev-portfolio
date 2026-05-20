@@ -41,7 +41,7 @@ const Contact = () => {
                             <span className="contact-method-icon">⚡</span>
                             <div className="contact-method-details">
                                 <span className="contact-method-label">LATENCIA // ESTADO</span>
-                                <span className="contact-method-link" style={{ color: 'var(--neon-cyan)' }}>
+                                <span className="contact-method-link" style={{ color: 'var(--accent-red)' }}>
                                     ONLINE // STABLE
                                 </span>
                             </div>
