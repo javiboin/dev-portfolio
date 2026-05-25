@@ -1,6 +1,6 @@
 /* ============================================================
    PROJECTS — Luxury Brutalism × Neo-Constructivism
-   Swiss Editorial System / Monolithic Column Structure
+   Swiss Editorial System / Monolithic VERTICAL Column Structure
    ============================================================ */
 
 /* ── Page wrapper ── */
@@ -8,7 +8,6 @@
   font-family: var(--font-sans);
   color: var(--text-main);
   padding: 40px 0 0;
-  position: relative;
 }
 
 /* ============================================================
@@ -18,10 +17,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0;
   padding-bottom: 20px;
   border-bottom: 3px solid var(--panel-black);
-  position: relative;
+  margin-bottom: 0;
 }
 
 .pj-header-left {
@@ -42,6 +40,7 @@
   width: 48px;
   height: 3px;
   background: var(--accent-orange);
+  flex-shrink: 0;
 }
 
 .pj-count {
@@ -53,171 +52,158 @@
 }
 
 /* ============================================================
-   MONOLITHIC LIST — STRUCTURE
+   MONOLITHIC VERTICAL COLUMNS — 4 towers side by side
    ============================================================ */
-.pj-monolith-list {
-  display: flex;
-  flex-direction: column;
+.pj-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-left: 2px solid var(--panel-black);
 }
 
-/* ── Each row is a full-width horizontal monolith ── */
-.pj-row {
-  display: grid;
-  /* num | divider | meta | content | actions */
-  grid-template-columns: 140px 1px 110px 1fr 160px;
-  align-items: stretch;
+/* ── Each column is a tall vertical monolith ── */
+.pj-col {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--panel-black);
   border-bottom: 2px solid var(--panel-black);
   position: relative;
   overflow: hidden;
   cursor: default;
-  min-height: 200px;
-  transition: background 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  background: var(--bg-surface);
+  transition: background 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* stagger entrance animation */
+  animation: colRise 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--col-index, 0) * 90ms);
 }
 
-.pj-row::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* subtle scanline effect */
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0, 0, 0, 0.012) 3px,
-    rgba(0, 0, 0, 0.012) 4px
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
+@keyframes colRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.pj-row--active::after {
-  opacity: 1;
-}
-
-.pj-row--active {
+.pj-col--active {
   background: var(--panel-black);
 }
 
-/* ── Orange accent bar — left edge, slides in on hover ── */
-.pj-accent-bar {
+/* ── Top accent bar — grows downward on hover ── */
+.pj-col-accent {
   position: absolute;
-  left: 0;
   top: 0;
-  bottom: 0;
-  width: 4px;
+  left: 0;
+  right: 0;
+  height: 4px;
   background: var(--accent-orange);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
 }
 
-.pj-row--active .pj-accent-bar {
-  transform: scaleY(1);
+.pj-col--active .pj-col-accent {
+  transform: scaleX(1);
+}
+
+/* ── Ghost number — massive faded background decoration ── */
+.pj-num-ghost {
+  position: absolute;
+  bottom: -0.15em;
+  right: -0.05em;
+  font-family: var(--font-title);
+  font-size: clamp(9rem, 16vw, 15rem);
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.04);
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+  transition: color 0.4s ease;
+  z-index: 0;
+}
+
+.pj-col--active .pj-num-ghost {
+  color: rgba(255, 107, 0, 0.07);
 }
 
 /* ============================================================
-   NUMBER COLUMN — The dominant graphic element
+   NUMBER BLOCK — The dominant graphic element
    ============================================================ */
-.pj-num-col {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
+.pj-num-block {
+  padding: 36px 28px 20px;
   position: relative;
-  overflow: hidden;
-}
-
-/* Ghost number — massive background element */
-.pj-num-col::before {
-  content: attr(data-num);
-  position: absolute;
-  font-family: var(--font-title);
-  font-size: 18vw;
-  font-weight: 900;
-  color: rgba(0, 0, 0, 0.04);
-  line-height: 1;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  user-select: none;
-  transition: color 0.35s ease;
-}
-
-.pj-row--active .pj-num-col::before {
-  color: rgba(255, 107, 0, 0.08);
+  z-index: 1;
 }
 
 .pj-num {
+  display: block;
   font-family: var(--font-title);
-  font-size: clamp(5rem, 9vw, 8.5rem);
+  font-size: clamp(4.5rem, 8vw, 7.5rem);
   font-weight: 400;
   line-height: 1;
-  color: var(--panel-black);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 2.5px var(--panel-black);
+  user-select: none;
+  transition:
+    -webkit-text-stroke-color 0.4s ease,
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.4s ease;
+}
+
+.pj-col--active .pj-num {
+  -webkit-text-stroke-color: var(--accent-orange);
+  transform: scale(1.05) translateX(4px);
+}
+
+/* ============================================================
+   HORIZONTAL RULE — structural dividers
+   ============================================================ */
+.pj-h-rule {
+  height: 2px;
+  background: var(--panel-black);
+  flex-shrink: 0;
+  transition: background 0.3s ease;
   position: relative;
   z-index: 1;
-  /* Stroke effect — number outline */
-  -webkit-text-stroke: 2px var(--panel-black);
-  transition: color 0.35s ease, -webkit-text-stroke 0.35s ease,
-    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
-  display: block;
-  user-select: none;
 }
 
-.pj-row--active .pj-num {
-  -webkit-text-stroke: 2px var(--accent-orange);
-  color: transparent;
-  transform: scale(1.08) translateX(6px);
+.pj-col--active .pj-h-rule {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* ============================================================
-   VERTICAL DIVIDER
+   METADATA BLOCK — Tag / Year / Status
    ============================================================ */
-.pj-divider-v {
-  background: var(--panel-black);
-  width: 2px;
-  align-self: stretch;
-  transition: background 0.3s ease;
-}
-
-.pj-row--active .pj-divider-v {
-  background: var(--accent-orange);
-}
-
-/* ============================================================
-   META COLUMN — Discipline / Year / Status
-   ============================================================ */
-.pj-meta-col {
+.pj-meta {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 10px;
-  padding: 32px 24px;
-  border-right: 2px solid var(--panel-black);
-  transition: border-color 0.3s ease;
-}
-
-.pj-row--active .pj-meta-col {
-  border-right-color: rgba(255, 255, 255, 0.15);
+  padding: 20px 28px;
+  position: relative;
+  z-index: 1;
 }
 
 .pj-discipline {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 2.5px;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--accent-orange);
   background: rgba(255, 107, 0, 0.1);
   border: 1px solid rgba(255, 107, 0, 0.35);
-  padding: 4px 8px;
+  padding: 4px 10px;
   display: inline-block;
   width: fit-content;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.pj-row--active .pj-discipline {
+.pj-col--active .pj-discipline {
   background: var(--accent-orange);
   color: #fff;
   border-color: var(--accent-orange);
@@ -225,153 +211,162 @@
 
 .pj-year {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
   letter-spacing: 1px;
   transition: color 0.3s ease;
 }
 
-.pj-row--active .pj-year {
-  color: rgba(255, 255, 255, 0.45);
+.pj-col--active .pj-year {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .pj-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
   transition: color 0.3s ease;
 }
 
-.pj-status::before {
-  content: '';
+.pj-col--active .pj-status {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.pj-dot {
   display: inline-block;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #22c55e;
   box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
-  animation: pj-pulse 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+  animation: dot-pulse 2.5s ease-in-out infinite;
 }
 
-.pj-row--active .pj-status {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-@keyframes pj-pulse {
+@keyframes dot-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  50%       { opacity: 0.35; }
 }
 
 /* ============================================================
-   CONTENT COLUMN — Title + Description + Stack
+   CONTENT BLOCK — Title / Description / Stack
    ============================================================ */
-.pj-content-col {
+.pj-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 14px;
-  padding: 40px 48px;
+  padding: 24px 28px;
+  flex: 1;                 /* pushes actions to bottom */
+  position: relative;
+  z-index: 1;
 }
 
 .pj-name {
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-title);
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   font-weight: 400;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--panel-black);
-  line-height: 1.1;
   margin: 0;
-  transition: color 0.3s ease;
-  position: relative;
+  transition: color 0.35s ease;
 }
 
-/* Underline that grows from left on hover */
+.pj-name-line {
+  display: block;
+}
+
+/* Underline sweep on hover */
 .pj-name::after {
   content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
+  display: block;
   height: 2px;
   width: 0;
   background: var(--accent-orange);
-  transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  margin-top: 8px;
+  transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.pj-row--active .pj-name {
+.pj-col--active .pj-name {
   color: #fff;
 }
 
-.pj-row--active .pj-name::after {
+.pj-col--active .pj-name::after {
   width: 100%;
 }
 
 .pj-desc {
-  font-size: 0.92rem;
-  line-height: 1.78;
+  font-size: 0.85rem;
+  line-height: 1.75;
   color: var(--text-muted);
-  max-width: 520px;
   margin: 0;
-  transition: color 0.3s ease;
+  transition: color 0.35s ease;
 }
 
-.pj-row--active .pj-desc {
-  color: rgba(255, 255, 255, 0.55);
+.pj-col--active .pj-desc {
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* Tech stack */
+/* ── Stack badges ── */
 .pj-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin-top: 4px;
 }
 
 .pj-tech {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--text-muted);
   border: 1px solid var(--metal-dark);
-  padding: 3px 10px;
+  padding: 2px 8px;
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-.pj-row--active .pj-tech {
+.pj-col--active .pj-tech {
   border-color: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.38);
 }
 
 /* ============================================================
-   ACTIONS COLUMN — CTA Buttons
+   ACTIONS BLOCK — Pinned at bottom of column
    ============================================================ */
-.pj-actions-col {
+.pj-actions {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 12px;
-  padding: 32px 32px 32px 16px;
+  gap: 0;
+  border-top: 2px solid var(--panel-black);
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.3s ease;
+}
+
+.pj-col--active .pj-actions {
+  border-top-color: rgba(255, 255, 255, 0.15);
 }
 
 .pj-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  padding: 14px 28px;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 2px;
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 11px 22px;
-  transition: background 0.25s ease, color 0.25s ease,
-    border-color 0.25s ease, transform 0.25s ease;
-  white-space: nowrap;
+  transition: background 0.25s ease, color 0.25s ease;
+  position: relative;
 }
 
 .pj-btn svg {
@@ -383,41 +378,34 @@
   transform: translate(2px, -2px);
 }
 
-/* Primary CTA — solid orange */
+/* Primary — solid orange fill */
 .pj-btn--primary {
   background: var(--accent-orange);
   color: #fff;
-  border: 2px solid var(--accent-orange);
 }
 
 .pj-btn--primary:hover {
   background: #e55a00;
-  border-color: #e55a00;
-  transform: translateY(-2px);
 }
 
-/* Ghost CTA — outline */
+/* Ghost — inherits column background */
 .pj-btn--ghost {
   background: transparent;
   color: var(--panel-black);
-  border: 2px solid var(--panel-black);
+  border-top: 1px solid var(--panel-black);
 }
 
-.pj-row--active .pj-btn--ghost {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: rgba(255, 255, 255, 0.7);
+.pj-col--active .pj-btn--ghost {
+  color: rgba(255, 255, 255, 0.65);
+  border-top-color: rgba(255, 255, 255, 0.12);
 }
 
 .pj-btn--ghost:hover {
-  background: var(--panel-black);
-  color: #fff;
-  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.06);
 }
 
-.pj-row--active .pj-btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.7);
-  color: #fff;
+.pj-col--active .pj-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.07);
 }
 
 /* ============================================================
@@ -425,9 +413,9 @@
    ============================================================ */
 .pj-footer {
   border-top: 3px solid var(--panel-black);
+  border-bottom: 2px solid var(--panel-black);
   overflow: hidden;
-  padding: 14px 0;
-  margin-top: 0;
+  padding: 13px 0;
   position: relative;
 }
 
@@ -435,9 +423,8 @@
 .pj-footer::after {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 48px;
+  top: 0; bottom: 0;
+  width: 60px;
   z-index: 2;
   pointer-events: none;
 }
@@ -455,17 +442,16 @@
 .pj-ticker-track {
   display: flex;
   width: max-content;
-  animation: pj-ticker 22s linear infinite;
+  animation: pj-ticker 28s linear infinite;
 }
 
 .pj-ticker-text {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--text-muted);
   white-space: nowrap;
-  padding-right: 60px;
 }
 
 @keyframes pj-ticker {
@@ -476,48 +462,25 @@
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+
+/* Tablet — 2×2 grid */
 @media (max-width: 900px) {
-  .pj-row {
-    grid-template-columns: 100px 1px 90px 1fr;
-    grid-template-rows: auto auto;
-  }
-
-  .pj-actions-col {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0 24px 28px;
-    border-top: 1px solid var(--metal-dark);
-  }
-
-  .pj-row--active .pj-actions-col {
-    border-top-color: rgba(255, 255, 255, 0.1);
+  .pj-columns {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 640px) {
-  .pj-row {
-    grid-template-columns: 80px 1px 1fr;
-    grid-template-rows: auto;
-    min-height: unset;
-  }
-
-  .pj-meta-col {
-    display: none;
-  }
-
-  .pj-content-col {
-    padding: 24px 20px;
+/* Mobile — single column stack */
+@media (max-width: 520px) {
+  .pj-columns {
+    grid-template-columns: 1fr;
   }
 
   .pj-num {
-    font-size: clamp(3.5rem, 14vw, 5rem);
+    font-size: clamp(4rem, 18vw, 5.5rem);
   }
 
-  .pj-actions-col {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0 20px 24px;
+  .pj-num-ghost {
+    font-size: clamp(7rem, 28vw, 10rem);
   }
 }
