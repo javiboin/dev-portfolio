@@ -4,92 +4,43 @@
   color: var(--text-main);
 }
 
-.dropdown-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 24px;
+/* ── Grid de cards ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
-.custom-dropdown {
-  position: relative;
-  width: 100%;
-  max-width: 360px;
-  cursor: pointer;
-  user-select: none;
-  font-family: var(--font-mono);
-}
-
-.selected-item {
-  padding: 14px 18px;
-  background: var(--panel-surface);
-  border: var(--panel-border);
-  color: var(--text-main);
-  font-size: 0.95rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: var(--transition-fast);
-}
-
-.custom-dropdown:hover .selected-item {
-  border-color: var(--metal-dark);
-}
-
-.arrow {
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
-  color: var(--accent-orange);
-}
-
-.custom-dropdown.open .arrow {
-  transform: rotate(180deg);
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  right: 0;
-  background: var(--panel-surface);
-  border: var(--panel-border);
-  overflow: hidden;
-  z-index: 100;
-}
-
-.dropdown-item {
-  padding: 14px 18px;
-  font-size: 0.95rem;
-  transition: var(--transition-fast);
-  color: var(--text-main);
-  border-bottom: 1px solid var(--metal-dark);
-}
-
-.dropdown-item:last-child {
-  border-bottom: none;
-}
-
-.dropdown-item:hover {
-  background: var(--metal-light);
-  color: var(--accent-orange);
-  padding-left: 24px;
-}
-
-.dropdown-item.active {
-  background: #ffffff;
-  color: var(--accent-orange);
-  font-weight: 600;
-  border-left: 4px solid var(--accent-orange);
-}
-
+/* ── Card individual ── */
 .project-card {
   background: var(--panel-surface);
-  border: 4px solid var(--panel-black);
-  padding: 42px;
-  text-align: left;
+  border: 2px solid var(--panel-black);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   position: relative;
-  transition: var(--transition-smooth);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.25s ease,
+    box-shadow 0.3s ease;
+  /* stagger fade-in via CSS custom prop */
+  animation: cardFadeUp 0.5s ease both;
+  animation-delay: calc(var(--card-index, 0) * 80ms);
 }
 
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accent top bar */
 .project-card::before {
   content: '';
   position: absolute;
@@ -98,60 +49,145 @@
   width: 100%;
   height: 3px;
   background: linear-gradient(90deg, var(--accent-orange), var(--metal-dark));
+  transition: background 0.3s ease;
 }
 
 .project-card:hover {
   border-color: var(--metal-dark);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(255, 107, 0, 0.08);
 }
 
-.project-card h2 {
+.project-card:hover::before {
+  background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+}
+
+/* ── Header row ── */
+.project-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-orange);
+  background: rgba(255, 107, 0, 0.08);
+  border: 1px solid rgba(255, 107, 0, 0.3);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+.project-index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--metal-dark);
+  letter-spacing: 1px;
+}
+
+/* ── Title ── */
+.project-name {
   font-family: var(--font-title);
-  font-size: 2rem;
+  font-size: 1.65rem;
   font-weight: 400;
-  margin-bottom: 16px;
   color: var(--panel-black);
+  line-height: 1.15;
+  margin: 0;
+  transition: color 0.25s ease;
 }
 
-.project-card p {
-  margin: 0.75rem 0 1.5rem;
-  line-height: 1.8;
+.project-card:hover .project-name {
+  color: var(--accent-orange);
+}
+
+/* ── Description ── */
+.project-desc {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  flex: 1;
 }
 
+/* ── Tech stack badges ── */
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stack-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  border: 1px solid var(--metal-dark);
+  padding: 3px 10px;
+  border-radius: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.project-card:hover .stack-badge {
+  border-color: var(--panel-black);
+  color: var(--text-main);
+}
+
+/* ── Links ── */
 .project-links {
   display: flex;
-  justify-content: flex-start;
-  gap: 18px;
-  margin-top: 28px;
+  gap: 12px;
+  margin-top: 4px;
   flex-wrap: wrap;
 }
 
-.project-card a {
-  display: inline-block;
-  padding: 12px 28px;
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   color: var(--panel-black);
   border: 2px solid var(--panel-black);
   text-decoration: none;
   font-weight: 500;
-  transition: var(--transition-fast);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    transform 0.2s ease;
 }
 
-.project-card a:hover {
-  background: var(--accent-orange);
-  color: #fff;
-  border-color: var(--accent-orange);
+.project-link:hover {
+  background: var(--panel-black);
+  color: var(--bg-surface);
   transform: translateY(-1px);
 }
 
-@media (max-width: 600px) {
-  .project-card {
-    padding: 28px;
+.project-link.primary {
+  background: var(--panel-black);
+  color: var(--bg-surface);
+}
+
+.project-link.primary:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: #fff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
-  .project-card h2 {
-    font-size: 1.65rem;
+}
+
+@media (max-width: 480px) {
+  .project-card {
+    padding: 24px;
+  }
+
+  .project-name {
+    font-size: 1.45rem;
   }
 }
