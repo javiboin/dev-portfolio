@@ -5,28 +5,28 @@ const Technologies = () => {
         {
             category: 'Frontend // UI',
             skills: [
-                { name: 'React (Hooks, Context)', level: '90%' },
-                { name: 'JavaScript ES6+', level: '85%' },
-                { name: 'HTML5 & Vanilla CSS3', level: '95%' },
-                { name: 'Vite & Build Tools', level: '80%' }
+                { name: 'React (Hooks, Context)', concept: 'Hooks, Context API, Lifecycle, Performance' },
+                { name: 'JavaScript ES6+', concept: 'Async/Await, Promises, DOM API, Functional Programming' },
+                { name: 'HTML5 & Vanilla CSS3', concept: 'Semantic HTML, Flexbox/Grid, Custom Properties, Responsive' },
+                { name: 'Vite & Build Tools', concept: 'Module Bundling, HMR, Dev Server, Optimization' }
             ]
         },
         {
             category: 'Backend // Services',
             skills: [
-                { name: 'Node.js Runtime', level: '80%' },
-                { name: 'Express.js Framework', level: '85%' },
-                { name: 'PostgreSQL & SQL', level: '70%' },
-                { name: 'RESTful API Design', level: '85%' }
+                { name: 'Node.js Runtime', concept: 'V8 Engine, Event Loop, Non-blocking I/O, FS Modules' },
+                { name: 'Express.js Framework', concept: 'Routing, Middleware, HTTP Pipeline, REST API' },
+                { name: 'PostgreSQL & SQL', concept: 'Relational Queries, Schema Design, Indexing, Joins' },
+                { name: 'RESTful API Design', concept: 'HTTP Status Codes, Endpoints, Serialization, JWT Auth' }
             ]
         },
         {
             category: 'DevOps // Workflow',
             skills: [
-                { name: 'Git & GitHub Control', level: '85%' },
-                { name: 'ESLint & Code Linting', level: '75%' },
-                { name: 'npm / Package Managers', level: '90%' },
-                { name: 'Netlify & Vercel Deploy', level: '80%' }
+                { name: 'Git & GitHub Control', concept: 'Branching, Pull Requests, Merge Conflict Resolution' },
+                { name: 'ESLint & Code Linting', concept: 'Static Code Analysis, Standard Formatting, Quality Rules' },
+                { name: 'npm / Package Managers', concept: 'Dependency Management, SemVer, Custom CLI Scripts' },
+                { name: 'Netlify & Vercel Deploy', concept: 'CI/CD Deployment, Serverless Functions, DNS & Domain Setup' }
             ]
         }
     ];
@@ -45,16 +45,8 @@ const Technologies = () => {
                         <div className="tech-list">
                             {group.skills.map((skill) => (
                                 <div key={skill.name} className="tech-item">
-                                    <div className="tech-item-info">
-                                        <span className="tech-name">{skill.name}</span>
-                                        <span className="tech-level-val">{skill.level}</span>
-                                    </div>
-                                    <div className="tech-bar-container">
-                                        <div 
-                                            className="tech-bar-fill" 
-                                            style={{ width: skill.level }}
-                                        ></div>
-                                    </div>
+                                    <span className="tech-name">{skill.name}</span>
+                                    <span className="tech-concept">{skill.concept}</span>
                                 </div>
                             ))}
                         </div>
