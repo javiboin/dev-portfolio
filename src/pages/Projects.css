@@ -89,7 +89,7 @@
 }
 
 .pj-col--active {
-  background: var(--panel-black);
+  background: var(--pj-active-bg, var(--panel-black));
 }
 
 /* ── Top accent bar — grows downward on hover ── */
