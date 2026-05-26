@@ -12,6 +12,10 @@ const Hero = () => {
                 <p className="hero-desc">
                     Analista de Sistemas enfocado en el diseño, arquitectura y optimización de soluciones informáticas.
                 </p>
+                <div className="hero-badge">
+                    <span className="badge-dot"></span>
+                    <span>ACTIVE_FOR_HIRE</span>
+                </div>
                 <div className="hero-cta">
                     <a href="#proyectos" className="btn-primary">VER PROYECTOS</a>
                     <a href="#contacto" className="btn-secondary">SISTEMA_DE_CONTACTO</a>
