@@ -3,9 +3,9 @@ import React from 'react';
 const Movies = () => {
     const moviesList = [
         { title: 'The Matrix', category: 'CYBERPUNK // SCI-FI' },
-        { title: 'Interstellar', category: 'COSMIC // ARCHITECTURE' },
-        { title: 'Lord of the Rings', category: 'EPIC // FANTASY' },
-        { title: 'Shrek', category: 'CULT // POP CULTURE' }
+        { title: 'Fight Club', category: 'PSYCHOLOGICAL // DECONSTRUCTION' },
+        { title: 'Midsommar', category: 'FOLK HORROR // PSYCHOLOGICAL' },
+        { title: 'Pulp Fiction', category: 'CULT // POP CULTURE' }
     ];
 
     return (

@@ -2,10 +2,10 @@ import React from 'react';
 
 const Music = () => {
     const genres = [
-        { id: '01', name: 'Synthwave & Cyberpunk Beats', label: '115 BPM' },
-        { id: '02', name: 'Dark Ambient & Deep Focus Drone', label: 'CODE_MODE' },
-        { id: '03', name: 'Post-Punk & Melancholic Shoegaze', label: 'TEXTURES' },
-        { id: '04', name: 'Industrial & Deep Techno', label: 'RHYTHM' }
+        { id: '01', name: 'Radiohead', label: 'ALTERNATIVE ROCK // EXPERIMENTAL' },
+        { id: '02', name: 'Deftones', label: 'ALTERNATIVE ROCK' },
+        { id: '03', name: 'Linkin Park', label: 'NU METAL // ALTERNATIVE ROCK' },
+        { id: '04', name: 'Rezz', label: 'INDUSTRIAL // BASS' }
     ];
 
     return (
