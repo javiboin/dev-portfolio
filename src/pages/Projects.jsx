@@ -88,21 +88,10 @@ export default function Projects() {
                 <span className="pj-num">{project.num}</span>
               </div>
 
-              {/* — Horizontal rule — */}
-              <div className="pj-h-rule" />
-
-              {/* — Metadata — */}
+              {/* — Category — */}
               <div className="pj-meta">
-                <span className="pj-discipline">{project.discipline}</span>
-                <span className="pj-year">{project.year}</span>
-                <span className="pj-status">
-                  <span className="pj-dot" />
-                  DEPLOYED
-                </span>
+                <span className="pj-category">{project.discipline}</span>
               </div>
-
-              {/* — Horizontal rule — */}
-              <div className="pj-h-rule" />
 
               {/* — Content — */}
               <div className="pj-content">
@@ -111,7 +100,6 @@ export default function Projects() {
                     <span key={j} className="pj-name-line">{line}</span>
                   ))}
                 </h3>
-                <p className="pj-desc">{project.description}</p>
                 <div className="pj-stack">
                   {project.stack.map((tech) => (
                     <span key={tech} className="pj-tech">{tech}</span>
