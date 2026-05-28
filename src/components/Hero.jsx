@@ -9,9 +9,6 @@ const Hero = () => {
                     Hola, soy
                     <span>Javier Alejandro Oyarzo</span>
                 </h1>
-                <p className="hero-desc">
-                    Analista de Sistemas enfocado en el diseño, arquitectura y optimización de soluciones informáticas.
-                </p>
                 <div className="hero-badge">
                     <span className="badge-dot"></span>
                     <span>ACTIVE_FOR_HIRE</span>
