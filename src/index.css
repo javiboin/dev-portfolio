@@ -347,10 +347,13 @@ section[id] {
 }
 
 @keyframes badge-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.35;
     transform: scale(0.9);
@@ -604,6 +607,7 @@ section[id] {
   .about-me {
     padding: 30px 24px 60px;
   }
+
   .about-me-container {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -1003,22 +1007,6 @@ section[id] {
   align-items: center;
   flex-wrap: wrap;
   gap: 20px;
-}
-
-.footer-console {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer-pulse-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent-orange);
-  animation: none;
 }
 
 .footer-socials {

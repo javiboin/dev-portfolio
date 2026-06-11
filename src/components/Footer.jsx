@@ -4,12 +4,15 @@ const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer-content">
-                <div className="footer-console">
-                    <span className="footer-pulse-dot"></span>
-                    <span>SYSTEM STATE: ONLINE // SECURE_PORT // ADDR: PATAGONIA_ARG</span>
-                </div>
-                
                 <ul className="footer-socials">
+                    <li>
+                        <span style={{ color: 'var(--text-muted)' }}>
+                            Todos los derechos reservados. © 2026 - Hecho por Javier Oyarzo.
+                        </span>
+                    </li>
+                    <li>
+                        <span style={{ opacity: 0.3 }}>|</span>
+                    </li>
                     <li>
                         <a href="https://github.com/javiboin" target="_blank" rel="noopener noreferrer">
                             GITHUB // javiboin
@@ -19,9 +22,9 @@ const Footer = () => {
                         <span style={{ opacity: 0.3 }}>|</span>
                     </li>
                     <li>
-                        <span style={{ color: 'var(--text-muted)' }}>
-                            © 2026 // JAVIER_ALEJANDRO_OYARZO
-                        </span>
+                        <a href="https://www.linkedin.com/in/javier-alejandro-oyarzo-7110aa138" target="_blank" rel="noopener noreferrer">
+                            LINKEDIN // Javier Oyarzo
+                        </a>
                     </li>
                 </ul>
             </div>
