@@ -3,8 +3,15 @@ import React from 'react';
 const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Custom interactive visual prompt
-        alert('Transmisión iniciada. (Mockup de envío de mensaje)');
+        
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const message = e.target.message.value;
+        
+        const subject = `Nuevo contacto de: ${name}`;
+        const body = `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`;
+        
+        window.location.href = `mailto:javiboindev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     };
 
     return (
@@ -34,7 +41,7 @@ const Contact = () => {
                             <span className="contact-method-icon">⚲</span>
                             <div className="contact-method-details">
                                 <span className="contact-method-label">UBICACIÓN // NODO</span>
-                                <span className="contact-method-link">Patagonia, Argentina</span>
+                                <span className="contact-method-link">Tierra del Fuego, Argentina</span>
                             </div>
                         </li>
                         <li className="contact-method-item">
