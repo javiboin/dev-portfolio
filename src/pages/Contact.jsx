@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact = () => {
-    const handleSubmit = (e) => {
+    const [status, setStatus] = useState(''); // '' | 'submitting' | 'success' | 'error'
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const name = e.target.name.value;
-        const email = e.target.email.value;
-        const message = e.target.message.value;
-        
-        const subject = `Nuevo contacto de: ${name}`;
-        const body = `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`;
-        
-        window.location.href = `mailto:javiboindev@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        setStatus('submitting');
+
+        const formData = new FormData(e.target);
+        formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus('success');
+                e.target.reset();
+            } else {
+                console.log("Error", data);
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error("Error", error);
+            setStatus('error');
+        }
     };
 
     return (
@@ -64,6 +82,7 @@ const Contact = () => {
                             className="form-input"
                             type="text"
                             id="name"
+                            name="name"
                             placeholder="Introduce tu nombre..."
                             required
                         />
@@ -75,6 +94,7 @@ const Contact = () => {
                             className="form-input"
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="Introduce tu dirección de correo..."
                             required
                         />
@@ -85,14 +105,17 @@ const Contact = () => {
                         <textarea
                             className="form-textarea"
                             id="message"
+                            name="message"
                             placeholder="Escribe tu mensaje aquí..."
                             required
                         ></textarea>
                     </div>
 
-                    <button className="btn-submit" type="submit">
-                        ENVIAR_SEÑAL
+                    <button className="btn-submit" type="submit" disabled={status === 'submitting'}>
+                        {status === 'submitting' ? 'ENVIANDO_SEÑAL...' : 'ENVIAR_SEÑAL'}
                     </button>
+                    {status === 'success' && <p className="success-message" style={{ color: '#4ade80', marginTop: '1rem', textAlign: 'center' }}>Transmisión enviada con éxito.</p>}
+                    {status === 'error' && <p className="error-message" style={{ color: '#f87171', marginTop: '1rem', textAlign: 'center' }}>Error en la transmisión. Intente nuevamente.</p>}
                 </form>
             </div>
         </section>
